@@ -1,38 +1,195 @@
-.App {
+/* Welcome Screen */
+.welcome-background{
+  background-image: url("https://i.pinimg.com/originals/ec/31/13/ec31133896846936d4f2f3b52b987161.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+.welcome-row{
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  margin-left: 12%;
+  margin-top: 5%;
+}
+.welcome-info {
+  width: 40%;
+  margin-right: 4%;
+}
+#title {
+  font-size: 3em;
+  font-family: 'Montserrat', sans-serif;
+  color: whitesmoke;
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#quote {
+text-align: center;
+font-family: 'Caveat', cursive;
+font-size: 2em;
+color: whitesmoke;
+margin-top: 12%;
+}
+.welcome-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 12%;
+}
+.button {
+  width: 12rem;
+  height: 2.5rem;
+  padding: 2%;
+  border-radius: 0.5rem;
+  background-color: rgb(38, 38, 38);
+  border-color: transparent;
+  font-family: 'Montserrat', sans-serif;
+  color: whitesmoke;
+  font-size: 100%;
+  cursor: pointer;
+}
+.button:focus {
+  outline: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.welcome-image {
+  transform: translatey(0px);
+  animation: float 6s ease-in-out infinite;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+@keyframes float {
+0% {
+  transform: translatey(0px);
+}
+50% {
+  transform: translatey(-20px);
+}
+100% {
+  transform: translatey(0px);
+}
+}
+
+/*  LOGIN SCREEN */
+.login-background {
+  background-image: url('./Assets/chocolate-chip-cookie.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+.back-div {
+  width: 12rem;
+  height: 2.5rem;
+  margin-top: 2%;
+  margin-left: 2%;
+}
+.login {
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 15rem;
+  height: 40%;
+  background-color: rgba(245, 245, 245, 0.879);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+}
+#create-account{
+  height: 50%;
+}
+.form {
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 100%;
+  height: 50%;
+  margin-left: 18%;
+  margin-bottom: 40%;
+  margin-top: 5%;
 }
-
-.App-link {
-  color: #61dafb;
+#create-form {
+  margin-top: -10%;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.error-message {
+  font-family: 'Montserrat', 'sans-serif';
+  font-size: smaller;
+  margin-bottom: -5%;
+}
+.input {
+  height: 30%;
+  width: 12rem;
+  border-radius: 0.5rem;
+  margin-top: 10%;
+}
+.input:focus{
+  outline: none;
+}
+#login-button {
+  margin-left: 2%;
+  margin-top: 10%;
+}
+/* User Show Page */
+.user-background {
+  background-image: url('https://www.sheknows.com/wp-content/uploads/2019/08/oreo-cookies.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+.user-columns-container {
+  display: flex;
+  flex-direction: row;
+  height: 96%;
+  width: 100%;
+  margin-bottom: 2%;
+}
+.user-column {
+  height: 98%;
+  width: 32%;
+  margin: 1%;
+  background-color: rgba(245, 245, 245, 0.879);
+}
+#user-image {
+  width: 80%;
+  height: auto;
+  margin-left:8%;
+  margin-top: 8%;
+}
+#user-columns-button {
+  margin-left: 25%;
+  margin-top: 10%;
+}
+#welcome-title {
+  margin-left: 20%;
+  font-size: 3em;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.instructions{
+  width: 95%;
+  margin-left: 4%
+}
+#instructions-font {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
+  padding: 1%;
+}
+/* ADVENTURE PAGE */
+.adventures-background {
+  background-image: url('http://images.ctfassets.net/lufu0clouua1/4vlUi1LZRCc42UygYWQMei/b35f18e851bfb9f20aca2869adfbeaa6/WEB__gourmet-cookies-beauty.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0; 
 }
