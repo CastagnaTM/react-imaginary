@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Login from './Login'
 import CreateAccount from './CreateAccount'
 import UserHome from './UserHome'
+import Adventures from './Adventures'
 import Cookie from '../Assets/cookie.png'
 
 
@@ -11,7 +12,10 @@ export default class Welcome extends Component {
         loginScreen: false,
         createAccount: false,
         welcome: true,
-        currentUser: null 
+        currentUser: null,
+        friend: null,
+        friendship: null,
+        adventuresScreen: false
     }
     showLogin = () => {
         this.setState({
@@ -40,6 +44,19 @@ export default class Welcome extends Component {
         this.setState({
             currentUser: user,
             welcome: false
+        })
+    }
+
+    setFriend = (data) => {
+        this.setState({
+            friend: data.buddy,
+            friendship: data.friendship
+        })
+    }
+
+    handleAdventures = () => {
+        this.setState({
+            adventuresScreen: true
         })
     }
 
@@ -87,12 +104,21 @@ export default class Welcome extends Component {
                 showLogin={this.showLogin} />
             )
         }
-        else if(this.state.currentUser){
+        else if(this.state.currentUser && !this.state.adventuresScreen){
             return(
                 <UserHome
                 handleLogout={this.handleLogout}
                 currentUser={this.state.currentUser.user}
+                setFriend={this.setFriend}
+                friend={this.state.friend}
+                friendship={this.state.friendship}
+                handleAdventures={this.handleAdventures}
                 />
+            )
+        }
+        else if(this.state.currentUser && this.state.adventuresScreen){
+            return(
+                <Adventures />
             )
         }
     }
