@@ -6,8 +6,19 @@ export default class UserHome extends Component {
 
     state = {
         friend: null,
+        friendship: null,
         instructions: false,
-        showAdventures: false
+        showAdventures: false,
+        userPage: true
+    }
+
+    componentDidMount = () => {
+        this.checkFriendship()
+    }
+
+    getImg = () => {
+        let friendImg = require(`../Assets/buddies_imgs/${this.state.friend.img_num}.png`)
+        return friendImg
     }
 
     confirmLogout = () => {
@@ -28,28 +39,86 @@ export default class UserHome extends Component {
         })
     }
 
-    findAFriend = () => {
-        console.log('this function will generate a friend for you')
+    checkFriendship = () => {
+        fetch('http://localhost:3000/check_friendship',{
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: this.props.currentUser.id
+            })
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            // console.log(data)
+            this.setState({
+                friend: data.buddy,
+                friendship: data.friendship
+            })
+        })
+    }
+
+    findAFriend = () => { 
+        fetch('http://localhost:3000/find_a_friend',{
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: this.props.currentUser.id
+            })
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            this.setState({
+                friend: data.buddy,
+                friendship: data.friendship
+            })
+        })
     }
 
     endFriendship = () => {
-        console.log('this function will end the friendship')
+        console.log(this.state.friendship)
+        fetch('http://localhost:3000/end_friendship',{
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: this.state.friendship.id
+            })
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            if(data.friendship === null){
+               this.setState({
+                   friendship: null,
+                   friend: null
+               })
+            }
+        })
     }
 
     showFriendInfo = () => {
         if (this.state.friend){
             return(
-                <div>
-                    <p>you have a friend, and it's info will go here</p>
-                    <button className='button' id='user-columns-button' onClick={this.handleAdventures}>GO ON AN ADVENTURE</button>
+                <div className='instructions'>
+                    <p id='user-page-font'>Your Friend:</p>
+                    <h2 id='user-page-font'>{this.state.friend.name}</h2>
+                    <img className='buddy-img' src={this.getImg()} alt='imaginary friend'/>
+                    <button className='button' id='user-columns-button' onClick={this.handleAdventures}>TO ADVENTURE!</button>
                     <button className='button' id='user-columns-button' onClick={this.endFriendship}>END FRIENDSHIP</button>
                 </div>
             )
         }
-        else if(this.state.friend === null && this.state.instructions === false){
+        else if(!this.state.friend && this.state.instructions === false){
             return (
                 <div className='instructions'>
-                    <h3 id='instructions-font'>You don't have a friend right now!</h3>
+                    <h3 id='user-page-font'>You don't have a friend right now!</h3>
                     <button className='button' id='user-columns-button' onClick={this.findAFriend}>FIND A FRIEND</button>
                 </div>
             )
@@ -57,20 +126,15 @@ export default class UserHome extends Component {
         else if(this.state.instructions){
             return(
                 <div className='instructions'>
-                    <h4 id="instructions-font">Click "FIND A FRIEND", to start a new friendship</h4>
-                    <h4 id="instructions-font">Once you have a friend, you can go on adventures together</h4>
-                    <h4 id="instructions-font">Choose from three types of adventures: "Workout", "Shopping", and "Food"</h4>
-                    <h4 id="instructions-font">Your friend will enjoy one adventure from each category </h4>
-                    <h4 id="instructions-font">Guess the right activity to increase your friendship rank</h4>
-                    <h4 id="instructions-font">Guess wrong, and it will decrease</h4>
-                    <h4 id="instructions-font">If your friendship rank reaches zero, your friend will leave!</h4>
+                    <h4 id="user-page-font">Click "FIND A FRIEND", to start a new friendship</h4>
+                    <h4 id="user-page-font">Once you have a friend, you can go on adventures together</h4>
+                    <h4 id="user-page-font">Choose from three types of adventures: "Workout", "Shopping", and "Food"</h4>
+                    <h4 id="user-page-font">Your friend will enjoy one adventure from each category </h4>
+                    <h4 id="user-page-font">Guess the right activity to increase your friendship rank</h4>
+                    <h4 id="user-page-font">Guess wrong, and it will decrease</h4>
+                    <h4 id="user-page-font">If your friendship rank reaches zero, your friend will leave!</h4>
                     <button className='button' id='user-columns-button' onClick={this.findAFriend}>FIND A FRIEND</button>
                 </div>
-            )
-        }
-        else if(this.state.showAdventures){
-            return(
-                <Adventures />
             )
         }
     }
@@ -78,14 +142,6 @@ export default class UserHome extends Component {
     render() {
         return (
             <div className='user-background'>
-                {/* <h1>Hey, this is the user page</h1>
-                <p>It's gonna have three columns. 1st will be the cookie monster, and user name</p>
-                <p>Second will have the friendship rank,  and button to see past friendships</p>
-                <p>Third will have the most conditional rendering. Default will be buttons to find a friend</p>
-                <p> if not viewing history, once you have a friend this will show current friend, their name, and buttons to leave or go on adventures </p>
-                <p> if viewing history, it'll be listed here if there is one</p> 
-                past friendships can be a history table that stores essential friendship info (user id buddy id and buddy info), and when pulled, finds the appropriate info by current user id
-                The only catch is ending a friendship without deleting the record of it*/}
                 <div className='user-columns-container'>
                     <div className='user-column'>
                         <div className='welcome-image' >
