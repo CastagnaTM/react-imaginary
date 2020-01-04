@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
-import Adventures from './Adventures'
 import Cookie from '../Assets/cookie.png'
 
 export default class UserHome extends Component {
+    // move friend and friendship up to welcome, load adventures from there
+    // also have to update checks from state.friend(ship) to props.friend(ship)
+    // make functions that set state for friend(ship) in welcome, and call those in place of setState in functions on this page
+    // move handle adventures to welcome, change calls to this.props
 
     state = {
-        friend: null,
-        friendship: null,
-        instructions: false,
-        showAdventures: false,
-        userPage: true
+        instructions: false
     }
 
     componentDidMount = () => {
@@ -17,7 +16,7 @@ export default class UserHome extends Component {
     }
 
     getImg = () => {
-        let friendImg = require(`../Assets/buddies_imgs/${this.state.friend.img_num}.png`)
+        let friendImg = require(`../Assets/buddies_imgs/${this.props.friend.img_num}.png`)
         return friendImg
     }
 
@@ -30,12 +29,6 @@ export default class UserHome extends Component {
     handleInstructions = () => {
         this.setState({
             instructions: true
-        })
-    }
-
-    handleAdventures = () => {
-        this.setState({
-            showAdventures: true
         })
     }
 
@@ -52,11 +45,7 @@ export default class UserHome extends Component {
         })
         .then(resp => resp.json())
         .then(data => {
-            // console.log(data)
-            this.setState({
-                friend: data.buddy,
-                friendship: data.friendship
-            })
+           this.props.setFriend(data)
         })
     }
 
@@ -73,49 +62,42 @@ export default class UserHome extends Component {
         })
         .then(resp => resp.json())
         .then(data => {
-            this.setState({
-                friend: data.buddy,
-                friendship: data.friendship
-            })
+            this.props.setFriend(data)
         })
     }
 
-    endFriendship = () => {
-        console.log(this.state.friendship)
-        fetch('http://localhost:3000/end_friendship',{
-            method:'POST',
-            headers:{
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                id: this.state.friendship.id
-            })
-        })
-        .then(resp => resp.json())
-        .then(data => {
-            if(data.friendship === null){
-               this.setState({
-                   friendship: null,
-                   friend: null
-               })
-            }
-        })
-    }
+    // endFriendship = () => {
+    //     fetch('http://localhost:3000/end_friendship',{
+    //         method:'POST',
+    //         headers:{
+    //             'Content-Type': 'application/json',
+    //             'Accept': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             id: this.props.friendship.id
+    //         })
+    //     })
+    //     .then(resp => resp.json())
+    //     .then(data => {
+    //         if(data.friendship === null){
+    //             this.props.setFriend({buddy: null, friendship: null}) // this might need tweaking
+    //         }
+    //     })
+    // }
 
     showFriendInfo = () => {
-        if (this.state.friend){
+        if (this.props.friend){
             return(
                 <div className='instructions'>
                     <p id='user-page-font'>Your Friend:</p>
-                    <h2 id='user-page-font'>{this.state.friend.name}</h2>
+                    <h2 id='user-page-font'>{this.props.friend.name}</h2>
                     <img className='buddy-img' src={this.getImg()} alt='imaginary friend'/>
-                    <button className='button' id='user-columns-button' onClick={this.handleAdventures}>TO ADVENTURE!</button>
-                    <button className='button' id='user-columns-button' onClick={this.endFriendship}>END FRIENDSHIP</button>
+                    <button className='button' id='user-columns-button' onClick={this.props.handleAdventures}>TO ADVENTURE!</button>
+                    <button className='button' id='user-columns-button' onClick={this.props.endFriendship}>END FRIENDSHIP</button>
                 </div>
             )
         }
-        else if(!this.state.friend && this.state.instructions === false){
+        else if(!this.props.friend && this.state.instructions === false){
             return (
                 <div className='instructions'>
                     <h3 id='user-page-font'>You don't have a friend right now!</h3>

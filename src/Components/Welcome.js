@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Login from './Login'
 import CreateAccount from './CreateAccount'
 import UserHome from './UserHome'
+import Adventures from './Adventures'
 import Cookie from '../Assets/cookie.png'
 
 
@@ -11,7 +12,10 @@ export default class Welcome extends Component {
         loginScreen: false,
         createAccount: false,
         welcome: true,
-        currentUser: null 
+        currentUser: null,
+        friend: null,
+        friendship: null,
+        adventuresScreen: false
     }
     showLogin = () => {
         this.setState({
@@ -43,14 +47,50 @@ export default class Welcome extends Component {
         })
     }
 
+    setFriend = (data) => {
+        this.setState({
+            friend: data.buddy,
+            friendship: data.friendship
+        })
+    }
+
+    handleAdventures = () => {
+        this.setState({
+            adventuresScreen: true
+        })
+    }
+
+    backToUser = () => {
+        this.setState({
+            adventuresScreen: false
+        })
+    }
+
+    endFriendship = () => {
+        fetch('http://localhost:3000/end_friendship',{
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: this.state.friendship.id
+            })
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            if(data.friendship === null){
+                this.setFriend({buddy: null, friendship: null}) // this might need tweaking
+            }
+        })
+    }
+
     handleLogout = () => {
         this.backToWelcome()
         this.setState({
             currentUser: null
         })
     }
-
-    
 
     render() {
         if(this.state.welcome){
@@ -87,11 +127,25 @@ export default class Welcome extends Component {
                 showLogin={this.showLogin} />
             )
         }
-        else if(this.state.currentUser){
+        else if(this.state.currentUser && !this.state.adventuresScreen){
             return(
                 <UserHome
                 handleLogout={this.handleLogout}
                 currentUser={this.state.currentUser.user}
+                setFriend={this.setFriend}
+                friend={this.state.friend}
+                friendship={this.state.friendship}
+                handleAdventures={this.handleAdventures}
+                endFriendship={this.endFriendship}
+                />
+            )
+        }
+        else if(this.state.currentUser && this.state.adventuresScreen){
+            return(
+                <Adventures 
+                backToUser={this.backToUser}
+                friend={this.state.friend}
+                endFriendship={this.endFriendship}
                 />
             )
         }

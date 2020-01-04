@@ -149,7 +149,7 @@ margin-top: 12%;
 .user-columns-container {
   display: flex;
   flex-direction: row;
-  height: 96%;
+  height: 98%;
   width: 100%;
   margin-bottom: 2%;
 }
@@ -181,7 +181,7 @@ margin-top: 12%;
 #user-page-font {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
   text-align: center;
-  padding: 1%;
+  /* padding: 1%; */
 }
 .buddy-img{
   margin-left: 20%;
@@ -198,3 +198,47 @@ margin-top: 12%;
   overflow: hidden;
   margin: 0; 
 }
+
+.adventure-progress {
+  width: 98%;
+  height: 10%;
+  margin-left: 1%;
+  background-color: rgba(245, 245, 245, 0.879);
+}
+
+#adventure-progress-font {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
+  text-align: center;
+  padding-top: 2%;
+}
+
+#workout-image {
+  width: auto;
+  height: 40%;
+  margin-left:8%;
+  margin-top: 2%;
+}
+#shopping-image {
+  width: auto;
+  height: 40%;
+  margin-left: 18%;
+  margin-top: 2%;
+}
+
+#eating-image {
+  width: auto;
+  height: 40%;
+  margin-left:24%;
+  margin-top: 2%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.button-div{
+  height: 30%;
+  margin-left: 6%;
+}
+
+#adventure-columns-container {
+  height: 85%
+}
+
