@@ -60,14 +60,37 @@ export default class Welcome extends Component {
         })
     }
 
+    backToUser = () => {
+        this.setState({
+            adventuresScreen: false
+        })
+    }
+
+    endFriendship = () => {
+        fetch('http://localhost:3000/end_friendship',{
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: this.state.friendship.id
+            })
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            if(data.friendship === null){
+                this.setFriend({buddy: null, friendship: null}) // this might need tweaking
+            }
+        })
+    }
+
     handleLogout = () => {
         this.backToWelcome()
         this.setState({
             currentUser: null
         })
     }
-
-    
 
     render() {
         if(this.state.welcome){
@@ -113,12 +136,17 @@ export default class Welcome extends Component {
                 friend={this.state.friend}
                 friendship={this.state.friendship}
                 handleAdventures={this.handleAdventures}
+                endFriendship={this.endFriendship}
                 />
             )
         }
         else if(this.state.currentUser && this.state.adventuresScreen){
             return(
-                <Adventures />
+                <Adventures 
+                backToUser={this.backToUser}
+                friend={this.state.friend}
+                endFriendship={this.endFriendship}
+                />
             )
         }
     }

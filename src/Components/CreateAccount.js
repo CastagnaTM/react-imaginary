@@ -18,7 +18,7 @@ export default class Login extends Component {
     handleCreateAccount = (event) => {
         event.preventDefault()
         if(this.state.password === this.state.password_confirmation){
-            fetch('http://localhost:3000/create-account',{
+            fetch('http://localhost:3000/create',{
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export default class Login extends Component {
                           errors:data.errors
                       })
                   } else {
-                      this.props.goToLogin()
+                      this.props.showLogin()
                 }
             })
         } else {

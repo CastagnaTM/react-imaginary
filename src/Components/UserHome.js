@@ -66,24 +66,24 @@ export default class UserHome extends Component {
         })
     }
 
-    endFriendship = () => {
-        fetch('http://localhost:3000/end_friendship',{
-            method:'POST',
-            headers:{
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                id: this.props.friendship.id
-            })
-        })
-        .then(resp => resp.json())
-        .then(data => {
-            if(data.friendship === null){
-                this.props.setFriend({buddy: null, friendship: null}) // this might need tweaking
-            }
-        })
-    }
+    // endFriendship = () => {
+    //     fetch('http://localhost:3000/end_friendship',{
+    //         method:'POST',
+    //         headers:{
+    //             'Content-Type': 'application/json',
+    //             'Accept': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             id: this.props.friendship.id
+    //         })
+    //     })
+    //     .then(resp => resp.json())
+    //     .then(data => {
+    //         if(data.friendship === null){
+    //             this.props.setFriend({buddy: null, friendship: null}) // this might need tweaking
+    //         }
+    //     })
+    // }
 
     showFriendInfo = () => {
         if (this.props.friend){
@@ -93,7 +93,7 @@ export default class UserHome extends Component {
                     <h2 id='user-page-font'>{this.props.friend.name}</h2>
                     <img className='buddy-img' src={this.getImg()} alt='imaginary friend'/>
                     <button className='button' id='user-columns-button' onClick={this.props.handleAdventures}>TO ADVENTURE!</button>
-                    <button className='button' id='user-columns-button' onClick={this.endFriendship}>END FRIENDSHIP</button>
+                    <button className='button' id='user-columns-button' onClick={this.props.endFriendship}>END FRIENDSHIP</button>
                 </div>
             )
         }
