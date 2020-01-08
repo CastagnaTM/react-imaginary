@@ -13,6 +13,7 @@ export default class Welcome extends Component {
         createAccount: false,
         welcome: true,
         currentUser: null,
+        currentScore: 0,
         friend: null,
         friendship: null,
         adventuresScreen: false
@@ -41,6 +42,7 @@ export default class Welcome extends Component {
 
     setUser = (user) => {
         this.backToWelcome()
+        console.log(user)
         this.setState({
             currentUser: user,
             welcome: false
@@ -83,6 +85,33 @@ export default class Welcome extends Component {
                 this.setFriend({buddy: null, friendship: null}) // this might need tweaking
             }
         })
+    }
+
+    saveScore = () => {
+        console.log(this.state.currentUser.id)
+        console.log(this.state.currentScore+1)
+        fetch('http://localhost:3000/save_score',{
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: this.state.currentUser.id,
+                score: this.state.currentScore+1
+            })
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            console.log(data)
+        })
+    }
+
+    updateScore = () => {
+        this.setState({
+            currentScore: this.state.currentScore+1
+        })
+        console.log(this.state.currentScore+1)
     }
 
     handleLogout = () => {
@@ -131,7 +160,8 @@ export default class Welcome extends Component {
             return(
                 <UserHome
                 handleLogout={this.handleLogout}
-                currentUser={this.state.currentUser.user}
+                currentUser={this.state.currentUser}
+                currentScore={this.state.currentScore}
                 setFriend={this.setFriend}
                 friend={this.state.friend}
                 friendship={this.state.friendship}
@@ -144,6 +174,8 @@ export default class Welcome extends Component {
             return(
                 <Adventures 
                 backToUser={this.backToUser}
+                updateScore={this.updateScore}
+                saveScore={this.saveScore}
                 friend={this.state.friend}
                 endFriendship={this.endFriendship}
                 />

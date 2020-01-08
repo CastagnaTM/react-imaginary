@@ -6,6 +6,7 @@ export default class Login extends Component {
         user_name: '',
         password: '',
         password_confirmation: '',
+        score: 0,
         errors: null
     }
 

@@ -32,8 +32,8 @@ export default class Login extends Component {
                   })
               } else {
                   // props function to handle login
-                  this.props.setUser(data)
-                // console.log(data)
+                  this.props.setUser(data.user)
+                  console.log(data.user)
             }
         })
     }
