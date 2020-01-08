@@ -99,8 +99,6 @@ export default class Welcome extends Component {
     }
 
     saveScore = () => {
-        console.log(this.state.currentUser.id)
-        console.log(this.state.currentScore+1)
         fetch('http://localhost:3000/save_score',{
             method: 'POST',
             headers:{
@@ -109,12 +107,14 @@ export default class Welcome extends Component {
             },
             body: JSON.stringify({
                 id: this.state.currentUser.id,
-                score: this.state.currentScore+1
+                score: this.state.currentScore
             })
         })
         .then(resp => resp.json())
         .then(data => {
-            console.log(data)
+            this.setState({
+                currentUser: data.user
+            })
         })
     }
 
@@ -122,7 +122,6 @@ export default class Welcome extends Component {
         this.setState({
             currentScore: this.state.currentScore+1
         })
-        console.log(this.state.currentScore+1)
     }
 
     updateGuesses = (remainingGuesses) => {

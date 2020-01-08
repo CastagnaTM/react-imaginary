@@ -57,7 +57,6 @@ export default class Login extends Component {
                         <button className='button' id='login-button' type="submit">Create That Account!</button>
                     </form>
                 </div>
-                
             </div>
         )
     }
