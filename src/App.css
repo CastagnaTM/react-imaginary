@@ -170,7 +170,8 @@ margin-top: 12%;
   margin-top: 10%;
 }
 #welcome-title {
-  margin-left: 20%;
+  margin-top: 2%;
+  text-align: center;
   font-size: 3em;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }

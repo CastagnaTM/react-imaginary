@@ -5,11 +5,15 @@ export default class AdventureButton extends Component {
     state = {
         neutral: true,
         correct: null,
+        available: true,
         correctColor: '#00ff00',
         incorrectColor: '#ff0000'
     }
     
     handleChoice = (num) => {
+        this.setState({
+            available: false
+        })
         if(this.props.prefs.includes(num)){
             this.setState({
                 neutral: false,
@@ -32,7 +36,7 @@ export default class AdventureButton extends Component {
             style={{backgroundColor: this.state.neutral ? 
                 null : this.state.correct ? 
                 '#00ff00' : '#ff0000'}}
-            onClick={() => this.handleChoice(this.props.id)}>{this.props.name}</button>
+            onClick={() => this.state.available ? this.handleChoice(this.props.id) : null}>{this.props.name}</button>
         )
     }
 }
