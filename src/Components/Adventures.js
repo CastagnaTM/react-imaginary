@@ -1,8 +1,20 @@
 import React, { Component } from 'react'
+import { Button, Modal } from 'react-bootstrap'
 import AdventureButton from './AdventureButton'
 import Workout from '../Assets/activity_imgs/workingout.png'
 import Eating from '../Assets/activity_imgs/eating.png'
 import Shopping from '../Assets/activity_imgs/shopping.png'
+
+//current: high score successfully updates if you win. 
+// next: set up methods representing 3 scenarios by which a friendship is ended: A user wins, loses, or quits
+// if they quit or lose, the round is ended (friendship ended), and current score is compared with high score, then current score is reset to zero
+// if the win, round is ended, and current score is updated
+// methods: 
+// endRound - endFriendship, updateScore. 
+// loseRound - endRound, saveScore. 
+// Note: endFriendship should confirm user action, and then end a friendship, nothing else. This is never called directly by the user, it is only nested in endRound
+// update code to remove seeded friends, and instead call the friend creation method uniquely each time find a friend is used
+
 
 export default class Adventures extends Component {
 
@@ -10,7 +22,9 @@ export default class Adventures extends Component {
         adventures: [{name: 'Yoga', id: 0}, {name:'Lift Weights', id: 1}, {name:'Go Running', id: 2}, {name:'Abercrombie', id: 3}, 
         {name:'H&M', id: 4}, {name:'Hot Topic', id: 5}, {name:'Pizza', id: 6}, {name:'Mexican', id: 7}, {name:'Cafe', id: 8}],
         correctCount: 0,
-        rank: 2
+        rank: 2,
+        showLoss: false,
+        showWin: false
     }
 
     handleResult = (result) => {
@@ -35,13 +49,30 @@ export default class Adventures extends Component {
             alert("Oh no, you've run out of guesses! Try a new friend...")
             this.props.endFriendship()
             this.props.backToUser()
+            // this.setState({
+            //     showLoss: true
+            // })
         }
     }
 
     checkWinProgress = () => {
         if(this.state.correctCount === 2){
             alert("Good Job!")
+            this.props.updateScore()
+            this.props.saveScore()
+            this.props.backToUser()
         }
+    }
+
+    handleLoss = () => {
+        this.setState({
+            showLoss: false
+        })
+        
+    }
+
+    handleVictory = () => {
+
     }
 
     render() {
