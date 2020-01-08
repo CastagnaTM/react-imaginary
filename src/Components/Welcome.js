@@ -13,15 +13,25 @@ export default class Welcome extends Component {
         createAccount: false,
         welcome: true,
         currentUser: null,
+        availableGuesses: 4,
         currentScore: 0,
         friend: null,
         friendship: null,
         adventuresScreen: false
     }
+    // functions for changing components
     showLogin = () => {
         this.setState({
             loginScreen: true,
             welcome: false
+        })
+    }
+
+    handleLogout = () => {
+        this.handleLoss()
+        this.backToWelcome()
+        this.setState({
+            currentUser: null
         })
     }
 
@@ -40,22 +50,6 @@ export default class Welcome extends Component {
         })
     }
 
-    setUser = (user) => {
-        this.backToWelcome()
-        console.log(user)
-        this.setState({
-            currentUser: user,
-            welcome: false
-        })
-    }
-
-    setFriend = (data) => {
-        this.setState({
-            friend: data.buddy,
-            friendship: data.friendship
-        })
-    }
-
     handleAdventures = () => {
         this.setState({
             adventuresScreen: true
@@ -65,6 +59,23 @@ export default class Welcome extends Component {
     backToUser = () => {
         this.setState({
             adventuresScreen: false
+        })
+    }
+
+    setUser = (user) => {
+        this.backToWelcome()
+        this.setState({
+            currentUser: user,
+            welcome: false
+        })
+    }
+
+    // Friendship related functions
+
+    setFriend = (data) => {
+        this.setState({
+            friend: data.buddy,
+            friendship: data.friendship
         })
     }
 
@@ -114,11 +125,45 @@ export default class Welcome extends Component {
         console.log(this.state.currentScore+1)
     }
 
-    handleLogout = () => {
-        this.backToWelcome()
+    updateGuesses = (remainingGuesses) => {
         this.setState({
-            currentUser: null
+            availableGuesses: remainingGuesses+2
         })
+    }
+
+    resetScore = () => {
+        this.setState({
+            currentScore: 0
+        })
+    }
+
+    resetGuesses = () => {
+        this.setState({
+            availableGuesses: 4
+        })
+    }
+
+    handleWin = () => {
+        this.endFriendship()
+        this.updateScore()
+        this.backToUser()
+    }
+ 
+    handleLoss = () => {
+        if(this.state.friendship){
+            this.endFriendship()
+        }
+        this.saveScore()
+        this.resetScore()
+        this.resetGuesses()
+        this.backToUser()
+    }
+
+    handleQuit = () => {
+       if(window.confirm('Are you sure you want to end this friendship? This will reset your current score')){
+           this.endFriendship()
+           this.resetScore()
+       }
     }
 
     render() {
@@ -166,16 +211,17 @@ export default class Welcome extends Component {
                 friend={this.state.friend}
                 friendship={this.state.friendship}
                 handleAdventures={this.handleAdventures}
-                endFriendship={this.endFriendship}
+                handleLoss={this.handleLoss}
                 />
             )
         }
         else if(this.state.currentUser && this.state.adventuresScreen){
             return(
                 <Adventures 
-                backToUser={this.backToUser}
-                updateScore={this.updateScore}
-                saveScore={this.saveScore}
+                availableGuesses={this.state.availableGuesses}
+                updateGuesses={this.updateGuesses}
+                handleLoss={this.handleLoss}
+                handleWin={this.handleWin}
                 friend={this.state.friend}
                 endFriendship={this.endFriendship}
                 />

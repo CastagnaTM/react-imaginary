@@ -2,53 +2,12 @@ import React, { Component } from 'react'
 import Cookie from '../Assets/cookie.png'
 
 export default class UserHome extends Component {
-    // move friend and friendship up to welcome, load adventures from there
-    // also have to update checks from state.friend(ship) to props.friend(ship)
-    // make functions that set state for friend(ship) in welcome, and call those in place of setState in functions on this page
-    // move handle adventures to welcome, change calls to this.props
 
     state = {
         instructions: false
     }
 
-    componentDidMount = () => {
-        this.checkFriendship()
-    }
-
-    getImg = () => {
-        let friendImg = require(`../Assets/buddies_imgs/${this.props.friend.img_num}.png`)
-        return friendImg
-    }
-
-    confirmLogout = () => {
-        if(window.confirm('Are you sure you want to logout?')){
-            this.props.handleLogout()
-        }
-    }
-
-    handleInstructions = () => {
-        this.setState({
-            instructions: !this.state.instructions
-        })
-    }
-
-    checkFriendship = () => {
-        fetch('http://localhost:3000/check_friendship',{
-            method: 'POST',
-            headers:{
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                id: this.props.currentUser.id
-            })
-        })
-        .then(resp => resp.json())
-        .then(data => {
-           this.props.setFriend(data)
-        })
-    }
-
+    // generate  new friend
     findAFriend = () => { 
         fetch('http://localhost:3000/find_a_friend',{
             method: 'POST',
@@ -66,6 +25,26 @@ export default class UserHome extends Component {
         })
     }
 
+
+    confirmLogout = () => {
+        if(window.confirm('Are you sure you want to logout? This will reset your current score and end your friendship')){
+            this.props.handleLogout()
+        }
+    }
+
+    // display functions
+
+    handleInstructions = () => {
+        this.setState({
+            instructions: !this.state.instructions
+        })
+    }
+
+    getImg = () => {
+        let friendImg = require(`../Assets/buddies_imgs/${this.props.friend.img_num}.png`)
+        return friendImg
+    }
+
     showFriendInfo = () => {
         if (this.props.friend && !this.state.instructions){
             return(
@@ -74,7 +53,7 @@ export default class UserHome extends Component {
                     <h2 id='user-page-font'>{this.props.friend.name}</h2>
                     <img className='buddy-img' src={this.getImg()} alt='imaginary friend'/>
                     <button className='button' id='user-columns-button' onClick={this.props.handleAdventures}>HANGOUT!</button>
-                    <button className='button' id='user-columns-button' onClick={this.props.endFriendship}>END FRIENDSHIP</button>
+                    <button className='button' id='user-columns-button' onClick={this.props.handleLoss}>END FRIENDSHIP</button>
                 </div>
             )
         }
@@ -95,8 +74,9 @@ export default class UserHome extends Component {
                     <h4 id="user-page-font">Choose from three types of activities: "Workout", "Go Shopping", and "Get Food"</h4>
                     <h4 id="user-page-font">Your friend will have one preference in each category</h4>
                     <h4 id="user-page-font">Guess the right activities to win over your friend!</h4>
-                    <h4 id="user-page-font">Each correct guess will increase the number of guesses you can make</h4>
+                    <h4 id="user-page-font">Each friend you win over will increase the number of guesses you can make by two</h4>
                     <h4 id="user-page-font">If you run out of guesses before you find all three of the correct activities, your friend will leave!</h4>
+                    <h4 id="user-page-font">Your current score on the left shows hwo many friends you've made without losing any, and your high score shows the most friends you've made in a row</h4>
                     <button className='button' id='user-columns-button' onClick={this.handleInstructions}>GO BACK</button>
                 </div>
             )
