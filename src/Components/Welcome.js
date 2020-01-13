@@ -80,7 +80,7 @@ export default class Welcome extends Component {
     }
 
     endFriendship = () => {
-        fetch('http://localhost:3000/end_friendship',{
+        fetch('https://imaginary-friend-api.herokuapp.com/end_friendship',{
             method:'POST',
             headers:{
                 'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ export default class Welcome extends Component {
     }
 
     saveScore = () => {
-        fetch('http://localhost:3000/save_score',{
+        fetch('https://imaginary-friend-api.herokuapp.com/save_score',{
             method: 'POST',
             headers:{
                 'Content-Type': 'application/json',
@@ -156,13 +156,6 @@ export default class Welcome extends Component {
         this.resetScore()
         this.resetGuesses()
         this.backToUser()
-    }
-
-    handleQuit = () => {
-       if(window.confirm('Are you sure you want to end this friendship? This will reset your current score')){
-           this.endFriendship()
-           this.resetScore()
-       }
     }
 
     render() {

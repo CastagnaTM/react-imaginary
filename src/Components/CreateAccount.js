@@ -20,7 +20,7 @@ export default class Login extends Component {
     handleCreateAccount = (event) => {
         event.preventDefault()
         if(this.state.password === this.state.password_confirmation){
-            fetch('http://localhost:3000/create',{
+            fetch('https://imaginary-friend-api.herokuapp.com/create',{
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",

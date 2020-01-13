@@ -10,7 +10,7 @@ export default class UserHome extends Component {
 
     // generate  new friend
     findAFriend = () => { 
-        fetch('http://localhost:3000/find_a_friend',{
+        fetch('https://imaginary-friend-api.herokuapp.com/find_a_friend',{
             method: 'POST',
             headers:{
                 'Content-Type': 'application/json',
@@ -41,6 +41,26 @@ export default class UserHome extends Component {
             logout: false
         })
     }
+
+    handleQuit = () => {
+        this.setState({
+            endFriendship: true
+        })
+    }
+
+    confirmQuit = () => {
+        this.props.handleLoss()
+        this.setState({
+            endFriendship: false
+        })
+    }
+
+    cancelQuit = () => {
+        this.setState({
+            endFriendship: false
+        })
+    } 
+
 
     // display functions
 
@@ -75,7 +95,7 @@ export default class UserHome extends Component {
                     <h2 id='user-page-font'>{this.props.friend.name}</h2>
                     <img className='buddy-img' src={this.getImg()} alt='imaginary friend'/>
                     <button className='button' id='user-columns-button' onClick={this.props.handleAdventures}>Hangout!</button>
-                    <button className='button' id='user-columns-button' onClick={this.props.handleLoss}>End Friendship</button>
+                    <button className='button' id='user-columns-button' onClick={this.handleQuit}>End Friendship</button>
                 </div>
             )
         }
@@ -116,10 +136,17 @@ export default class UserHome extends Component {
             <div className='user-background'>
                 <div className='overlay' style={{display: this.state.logout ? 'block' : 'none'}}>
                     <div className='overlay-info'>
-                        <h4 id='overlay-font'>Are you sure you want to logout? This will reset your current score and end your friendship</h4>
+                        <h4 id='overlay-font'>Are you sure you want to logout? This will reset your current score and end any current friendships</h4>
                     </div>
                     <button className='button' id='overlay-button' onClick={this.confirmLogout}>LOGOUT</button>
                     <button className='button' id='overlay-button' onClick={this.cancelLogout}>CANCEL</button>
+                </div>
+                <div className='overlay' style={{display: this.state.endFriendship ? 'block' : 'none'}}>
+                    <div className='overlay-info'>
+                        <h4 id='overlay-font'>Are you sure you want to end this friendship? This will reset your current score</h4>
+                    </div>
+                    <button className='button' id='overlay-button' onClick={this.confirmQuit}>CONFIRM</button>
+                    <button className='button' id='overlay-button' onClick={this.cancelQuit}>CANCEL</button>
                 </div>
                 <div className='user-columns-container'>
                     <div className='user-column'>
