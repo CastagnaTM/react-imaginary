@@ -16,7 +16,7 @@ export default class Login extends Component {
 
     handleLogin = (event) => {
         event.preventDefault()
-        fetch('http://localhost:3000/login',{
+        fetch('https://imaginary-friend-api.herokuapp.com/login',{
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Button, Modal } from 'react-bootstrap'
 import AdventureButton from './AdventureButton'
 import Workout from '../Assets/activity_imgs/workingout.png'
 import Eating from '../Assets/activity_imgs/eating.png'
