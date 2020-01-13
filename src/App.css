@@ -40,6 +40,8 @@ margin-top: 12%;
   margin-top: 12%;
 }
 .button {
+  text-align: center;
+  justify-content: center;
   width: 12rem;
   height: 2.5rem;
   padding: 2%;
@@ -132,7 +134,7 @@ margin-top: 12%;
   outline: none;
 }
 #login-button {
-  margin-left: 2%;
+  margin-left: 1%;
   margin-top: 10%;
 }
 /* User Show Page */
@@ -189,6 +191,18 @@ margin-top: 12%;
   margin-left: 20%;
   width: 60%
 }
+.highScore {
+  width: 90%;
+  margin-left: 5%;
+  /* border-bottom: inset gold 0.35em; */
+  background-color: rgba(255, 217, 0, 0.192);
+}
+.currentScore {
+  width: 90%;
+  margin-left: 5%;
+  /* border-bottom: inset gold 0.35em; */
+  background-color: rgba(0, 136, 255, 0.125);
+}
 /* ADVENTURE PAGE */
 .adventures-background {
   background-image: url('http://images.ctfassets.net/lufu0clouua1/4vlUi1LZRCc42UygYWQMei/b35f18e851bfb9f20aca2869adfbeaa6/WEB__gourmet-cookies-beauty.jpg');
@@ -242,5 +256,42 @@ margin-top: 12%;
 
 #adventure-columns-container {
   height: 85%
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 50%;
+  height: 45%;
+  background-color: rgba(255, 249, 249, 0.954);
+  border: solid rgba(0,0,0,0.9);
+  z-index: 2;
+}
+
+#overlay-button {
+  margin-left: 35%;
+}
+
+.overlay-header {
+justify-content: center;
+height: 20%;
+width: 100%;
+border-bottom: solid black 1px;
+margin-bottom: 4%;
+}
+
+.overlay-info {
+  height: 20%;
+  width: 100%;
+  margin-bottom: 4%;
+}
+#overlay-font {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
+  text-align: center;
 }
 

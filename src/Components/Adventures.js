@@ -11,6 +11,8 @@ export default class Adventures extends Component {
         adventures: [{name: 'Yoga', id: 0}, {name:'Lift Weights', id: 1}, {name:'Go Running', id: 2}, {name:'Abercrombie', id: 3}, 
         {name:'H&M', id: 4}, {name:'Hot Topic', id: 5}, {name:'Pizza', id: 6}, {name:'Mexican', id: 7}, {name:'Cafe', id: 8}],
         correctCount: 0,
+        overlay: false,
+        success: false,
         availableGuesses: null        
     }
 
@@ -35,24 +37,39 @@ export default class Adventures extends Component {
         }
     }
 
+    //replace these alerts with an overlay that stays hidden until the state condition is reached
+    // remember to set success to tru/false as necessary
     checkLoseProgress = () => {
         if(this.state.availableGuesses === 0){
-            alert("Oh no, you've run out of guesses! Try a new friend...")
-            this.props.handleLoss()
+            this.setState({
+                overlay: true,
+                success: false
+            })
         }
     }
 
     checkWinProgress = () => {
         if(this.state.correctCount === 2){
-            alert("Good Job!")
             this.props.updateGuesses(this.state.availableGuesses)
-            this.props.handleWin()
+            this.setState({
+                overlay: true,
+                success: true
+            })
         }
     }
 
     render() {
         return (
             <div className='user-background'>
+                <div className='overlay' style={{display: this.state.overlay ? 'block' : 'none'}}>
+                    <div className='overlay-header'>
+                        <h1 id='overlay-font'>{this.state.success ? 'Great Job!' : "Sorry, friend..."}</h1>
+                    </div>
+                    <div className='overlay-info'>
+                        <h4 id='overlay-font'>{this.state.success ? `Your new current score: ${this.props.currentScore+1}` : 'Better luck next time!'}</h4>
+                    </div>
+                    <button className='button' id='overlay-button' onClick={this.state.success ? this.props.handleWin : this.props.handleLoss}>OK</button>
+                </div>
                 <div className='adventure-progress'>
                     <h2 id='adventure-progress-font'>Guesses Available: {this.state.availableGuesses+1}</h2>
                 </div>

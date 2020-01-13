@@ -5,9 +5,7 @@ export default class AdventureButton extends Component {
     state = {
         neutral: true,
         correct: null,
-        available: true,
-        correctColor: '#00ff00',
-        incorrectColor: '#ff0000'
+        available: true
     }
     
     handleChoice = (num) => {
@@ -19,13 +17,23 @@ export default class AdventureButton extends Component {
                 neutral: false,
                 correct: true
             })
-            this.props.handleResult(true)
+            this.handleUpdate(true)
         }        
         else{
             this.setState({
                 neutral: false,
                 correct: false
             })
+            this.handleUpdate(false)
+        }
+        
+    }
+
+    handleUpdate = (result) => {
+        if(result){
+            this.props.handleResult(true)
+        }
+        else{
             this.props.handleResult(false)
         }
     }

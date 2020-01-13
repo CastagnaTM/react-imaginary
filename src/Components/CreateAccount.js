@@ -46,7 +46,7 @@ export default class Login extends Component {
         return (
             <div className='login-background'>
                 <div className='back-div'>
-                    <button className='button' onClick={this.props.backToWelcome}>BACK</button>
+                    <button className='button' onClick={this.props.backToWelcome}>Go Back</button>
                 </div>
                 <div className='login' id='create-account'>
                     <form className="form" id='create-form' onSubmit={this.handleCreateAccount} >

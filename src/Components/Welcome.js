@@ -93,7 +93,7 @@ export default class Welcome extends Component {
         .then(resp => resp.json())
         .then(data => {
             if(data.friendship === null){
-                this.setFriend({buddy: null, friendship: null}) // this might need tweaking
+                this.setFriend({buddy: null, friendship: null}) 
             }
         })
     }
@@ -171,7 +171,7 @@ export default class Welcome extends Component {
                 <div className='welcome-background'>
                     <div className='welcome-row'>
                         <div className='welcome-info'>
-                            <h1 id='title'>Imaginary Friends</h1>
+                            <h1 id='title'>Imaginary Friend Simulator</h1>
                             <p id='quote'>"Stranger just friend me have not shared cookie with yet."</p>
                             <div className='welcome-nav'>
                                 <button className='button' onClick={this.showLogin}>LOGIN</button> 
@@ -223,6 +223,7 @@ export default class Welcome extends Component {
                 handleWin={this.handleWin}
                 friend={this.state.friend}
                 endFriendship={this.endFriendship}
+                currentScore={this.state.currentScore}
                 />
             )
         }
