@@ -41,7 +41,7 @@ export default class Login extends Component {
         return (
             <div className='login-background'>
                 <div className='back-div'>
-                    <button className='button' onClick={this.props.backToWelcome}>BACK</button>
+                    <button className='button' onClick={this.props.backToWelcome}>Go Back</button>
                 </div>
                 <div className='login'>
                     <form className="form" onSubmit={this.handleLogin} >
@@ -51,7 +51,6 @@ export default class Login extends Component {
                         <button className='button' id='login-button' type="submit">Login, friend!</button>
                     </form>
                 </div>
-                
             </div>
         )
     }

@@ -5,23 +5,35 @@ export default class AdventureButton extends Component {
     state = {
         neutral: true,
         correct: null,
-        correctColor: '#00ff00',
-        incorrectColor: '#ff0000'
+        available: true
     }
     
     handleChoice = (num) => {
+        this.setState({
+            available: false
+        })
         if(this.props.prefs.includes(num)){
             this.setState({
                 neutral: false,
                 correct: true
             })
-            this.props.handleResult(true)
+            this.handleUpdate(true)
         }        
         else{
             this.setState({
                 neutral: false,
                 correct: false
             })
+            this.handleUpdate(false)
+        }
+        
+    }
+
+    handleUpdate = (result) => {
+        if(result){
+            this.props.handleResult(true)
+        }
+        else{
             this.props.handleResult(false)
         }
     }
@@ -32,7 +44,7 @@ export default class AdventureButton extends Component {
             style={{backgroundColor: this.state.neutral ? 
                 null : this.state.correct ? 
                 '#00ff00' : '#ff0000'}}
-            onClick={() => this.handleChoice(this.props.id)}>{this.props.name}</button>
+            onClick={() => this.state.available ? this.handleChoice(this.props.id) : null}>{this.props.name}</button>
         )
     }
 }

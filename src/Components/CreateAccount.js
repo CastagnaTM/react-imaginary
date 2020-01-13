@@ -7,7 +7,8 @@ export default class Login extends Component {
         password: '',
         password_confirmation: '',
         score: 0,
-        errors: null
+        errors: null,
+        passwordError: false
     }
 
     handleChange = (event) =>{
@@ -38,15 +39,30 @@ export default class Login extends Component {
                 }
             })
         } else {
-            alert('Your passwords do not match')
+            // alert('Your passwords do not match')
+            this.setState({
+                passwordError: true
+            })
         }
+    }
+
+    closeOverlay = () => {
+        this.setState({
+            passwordError: false
+        })
     }
 
     render() {
         return (
             <div className='login-background'>
+                <div className='overlay' style={{display: this.state.passwordError ? 'block' : 'none'}}>
+                    <div className='overlay-info'>
+                        <h1 id='overlay-font'>Sorry, pal! Your passwords do not match. Try again...</h1>
+                    </div>
+                    <button className='button' id='overlay-button' onClick={this.closeOverlay}>OK</button>
+                </div>
                 <div className='back-div'>
-                    <button className='button' onClick={this.props.backToWelcome}>BACK</button>
+                    <button className='button' onClick={this.props.backToWelcome}>Go Back</button>
                 </div>
                 <div className='login' id='create-account'>
                     <form className="form" id='create-form' onSubmit={this.handleCreateAccount} >
