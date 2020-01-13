@@ -37,8 +37,6 @@ export default class Adventures extends Component {
         }
     }
 
-    //replace these alerts with an overlay that stays hidden until the state condition is reached
-    // remember to set success to tru/false as necessary
     checkLoseProgress = () => {
         if(this.state.availableGuesses === 0){
             this.setState({
