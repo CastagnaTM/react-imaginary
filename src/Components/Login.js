@@ -31,7 +31,6 @@ export default class Login extends Component {
                       errors:data.errors
                   })
               } else {
-                  // props function to handle login
                   this.props.setUser(data.user)
             }
         })
