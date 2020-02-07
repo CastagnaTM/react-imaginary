@@ -64,6 +64,7 @@ export default class Adventures extends Component {
                     </div>
                     <div className='overlay-info'>
                         <h4 id='overlay-font'>{this.state.success ? `Your new current score: ${this.props.currentScore+1}` : 'Better luck next time!'}</h4>
+                        <h4 id='overlay-font'>{this.state.success ? `You'll have ${this.state.availableGuesses+3} guesses for the next round!` : null}</h4>
                     </div>
                     <button className='button' id='overlay-button' onClick={this.state.success ? this.props.handleWin : this.props.handleLoss}>OK</button>
                 </div>

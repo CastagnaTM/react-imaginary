@@ -27,6 +27,24 @@ export default class Welcome extends Component {
         })
     }
 
+    handleGuest = () => {
+        fetch('https://imaginary-friend-api.herokuapp.com/login',{
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                'Accept': "application/json"
+                },
+                body: JSON.stringify({
+                    user_name: 'demo',
+                    password: 'demo'
+                })
+            })
+            .then(resp => resp.json())
+            .then(data => {
+                this.setUser(data.user)
+        })
+    }
+
     handleLogout = () => {
         this.handleLoss()
         this.backToWelcome()
@@ -167,8 +185,9 @@ export default class Welcome extends Component {
                             <h1 id='title'>Imaginary Friend Simulator</h1>
                             <p id='quote'>"Stranger just friend me have not shared cookie with yet."</p>
                             <div className='welcome-nav'>
-                                <button className='button' onClick={this.showLogin}>LOGIN</button> 
-                                <button className='button' onClick={this.showCreate}>NEW ACCOUNT</button>   
+                                <button className='button' id='welcome-button' onClick={this.showLogin}>LOGIN</button> 
+                                <button className='button' id='welcome-button' onClick={this.showCreate}>NEW ACCOUNT</button>
+                                <button className='button' id='welcome-button' onClick={this.handleGuest}>GUEST</button>    
                             </div>
                         </div>
                         <div className='welcome-image'>

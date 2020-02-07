@@ -56,7 +56,9 @@ margin-top: 12%;
 .button:focus {
   outline: none;
 }
-
+#welcome-button {
+  width: 10rem;
+}
 .welcome-image {
   transform: translatey(0px);
   animation: float 6s ease-in-out infinite;
@@ -168,7 +170,8 @@ margin-top: 12%;
   margin-top: 8%;
 }
 #user-columns-button {
-  margin-left: 25%;
+  margin-left: 30%;
+  width: 40%;
   margin-top: 10%;
 }
 #welcome-title {
@@ -275,6 +278,7 @@ margin-top: 12%;
 
 #overlay-button {
   margin-left: 35%;
+  width: 30%;
   margin-top: 2%;
   padding: 1%;
 }
